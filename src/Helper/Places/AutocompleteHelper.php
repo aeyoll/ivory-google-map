@@ -34,6 +34,9 @@ class AutocompleteHelper extends AbstractHelper
     /** @var \Ivory\GoogleMap\Helper\Base\BoundHelper */
     protected $boundHelper;
 
+    /** @var string */
+    protected $apiKey;
+
     /**
      * Creates an autocomplete helper.
      *
@@ -165,7 +168,13 @@ class AutocompleteHelper extends AbstractHelper
         $output = array();
 
         if (!$this->apiHelper->isLoaded() && !$autocomplete->isAsync()) {
-            $output[] = $this->apiHelper->render($autocomplete->getLanguage(), array('places'));
+            $output[] = $this->apiHelper->render(
+                $autocomplete->getLanguage(),
+                array('places'),
+                null,
+                null,
+                $this->getApiKey()
+            );
         }
 
         $output[] = '<script type="text/javascript">'.PHP_EOL;
@@ -196,7 +205,9 @@ class AutocompleteHelper extends AbstractHelper
             $output[] = $this->apiHelper->render(
                 $autocomplete->getLanguage(),
                 array('places'),
-                'load_ivory_google_place'
+                'load_ivory_google_place',
+                null,
+                $this->getApiKey()
             );
         }
 
@@ -236,5 +247,23 @@ class AutocompleteHelper extends AbstractHelper
             $autocomplete->getInputId(),
             $this->jsonBuilder->build()
         );
+    }
+
+    /**
+     * Gets the Browser API Key
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * Sets the Browser API Key
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
     }
 }

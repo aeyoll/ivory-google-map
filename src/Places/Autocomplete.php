@@ -47,6 +47,9 @@ class Autocomplete extends AbstractJavascriptVariableAsset
     /** @var string */
     protected $language;
 
+    /** @var string */
+    protected $api_key;
+
     /**
      * Creates a place autocomplete.
      */
@@ -65,6 +68,7 @@ class Autocomplete extends AbstractJavascriptVariableAsset
 
         $this->async = false;
         $this->language = 'en';
+        $this->api_key = null;
     }
 
     /**
@@ -472,5 +476,25 @@ class Autocomplete extends AbstractJavascriptVariableAsset
     public function setLanguage($language)
     {
         $this->language = $language;
+    }
+
+    /**
+     * Gets the autocomplete api key
+     *
+     * @return string The autocomplete api key
+     */
+    public function getApiKey()
+    {
+        return $this->api_key;
+    }
+
+    /**
+     * Sets the autocomplete api key.
+     *
+     * @param string $api_key The autocomplete api key
+     */
+    public function setApiKey($api_key)
+    {
+        $this->api_key = $api_key;
     }
 }
